@@ -488,6 +488,14 @@ def test_get_import(get_import_id):
 	assert response.status_code == 200, "Test failed"
 
 
+def test_get_import_with_non_existent_import_id():
+	"""Test for the third method with non existent import id"""
+	import_id = 999999
+	url = "http://localhost:5000/imports/" + str(import_id) + "/citizens"
+	response = requests.get(url)
+	assert response.status_code == 400, "Test failed"
+
+
 #### Test for the fourth method: GET /imports/<int:import_id>/citizens/birthdays ####
 
 def test_get_birthdays(get_import_id):
@@ -497,6 +505,14 @@ def test_get_birthdays(get_import_id):
 	assert response.status_code == 200, "Test failed"
 
 
+def test_get_birthdays_with_non_existent_import_id():
+	"""Test for the fourth method with non existent import id"""
+	import_id = 999999
+	url = "http://localhost:5000/imports/" + str(import_id) + "/citizens/birthdays"
+	response = requests.get(url)
+	assert response.status_code == 400, "Test failed"
+
+
 #### Test for the fifth method: GET /imports/<int:import_id>/citizens/birthdays ####
 
 def test_get_stat(get_import_id):
@@ -504,3 +520,20 @@ def test_get_stat(get_import_id):
 	url = "http://localhost:5000/imports/" + str(get_import_id) + "/towns/stat/percentile/age"
 	response = requests.get(url)
 	assert response.status_code == 200, "Test failed"
+
+
+def test_get_stat_with_non_existent_import_id(get_import_id):
+	"""Test for the fifth method with non existent import id"""
+	import_id = 999999
+	url = "http://localhost:5000/imports/" + str(import_id) + "/towns/stat/percentile/age"
+	response = requests.get(url)
+	assert response.status_code == 400, "Test failed"
+
+
+#### Test for the request to non existent endpoint ####
+
+def test_get_data_from_non_existent_endpoint(get_import_id):
+	"""Test for the request to non existent endpoint"""
+	url = "http://localhost:5000/imports/" + str(get_import_id) + "/some/path"
+	response = requests.get(url)
+	assert response.status_code == 404, "Test failed"
