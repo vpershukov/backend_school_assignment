@@ -479,7 +479,7 @@ def test_updates_with_no_body_data(get_import_id):
 	assert response.status_code == 400, "Body should contain data"
 
 
-#### Test for the third method: GET /imports/<int:import_id>/citizens ####
+#### Tests for the third method: GET /imports/<int:import_id>/citizens ####
 
 def test_get_import(get_import_id):
 	"""Test for the third method with valid data"""
@@ -496,7 +496,7 @@ def test_get_import_with_non_existent_import_id():
 	assert response.status_code == 400, "Test failed"
 
 
-#### Test for the fourth method: GET /imports/<int:import_id>/citizens/birthdays ####
+#### Tests for the fourth method: GET /imports/<int:import_id>/citizens/birthdays ####
 
 def test_get_birthdays(get_import_id):
 	"""Test for the fourth method with valid data"""
@@ -513,7 +513,7 @@ def test_get_birthdays_with_non_existent_import_id():
 	assert response.status_code == 400, "Test failed"
 
 
-#### Test for the fifth method: GET /imports/<int:import_id>/citizens/birthdays ####
+#### Tests for the fifth method: GET /imports/<int:import_id>/citizens/birthdays ####
 
 def test_get_stat(get_import_id):
 	"""Test for the fifth method with valid data"""
