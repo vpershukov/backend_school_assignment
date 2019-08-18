@@ -91,7 +91,7 @@ def get_citizens(import_id):
 
 
 # Fourth API method
-@app.route("/imports/<int:import_id>/citizens/birthdays", methods=["GET"]) # TODO: переписать
+@app.route("/imports/<int:import_id>/citizens/birthdays", methods=["GET"])
 def get_citizens_and_presents(import_id):
     get_import = imports_collection.find_one({"import_id": import_id})
     if not get_import:
