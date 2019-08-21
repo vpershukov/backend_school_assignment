@@ -34,7 +34,7 @@ def import_validation(citizens):
 
         if citizen["citizen_id"] < 0:
             abort(400)
-        if not re.match(r'\w', citizen["town"]):
+        if not re.match(r'.*\w.*', citizen["town"]):
             abort(400)
         if not re.match(r'.*\w.*', citizen["street"]):
             abort(400)

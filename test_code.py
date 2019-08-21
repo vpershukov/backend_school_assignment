@@ -1,7 +1,4 @@
-import pytest
-import requests
-import json
-import random
+import pytest, requests, json, random
 
 #### TEST DATA #####
 
@@ -11,7 +8,6 @@ invalid_data_for_birth_date_field = ["", " ", "-", 1, None, "32.12.1986", "26.13
 invalid_data_for_relatives_field = [["sdsd"], [""], [None], [1, "qwerty"], [12.2]]
 
 #### TEST DATA #####
-
 
 # Fixture to get import_id
 @pytest.fixture(scope='session')
@@ -39,7 +35,6 @@ def get_import_id():
 
 
 #### Tests for the first method: POST /imports ####
-
 def test_import():
 	"""Test for the first method with valid data"""
 	url = "http://localhost:5000/imports"
@@ -382,7 +377,6 @@ def test_import_with_extra_field():
 
 
 #### Tests for the second method: PATCH /imports/<int:import_id>/citizens/<int:citizen_id> ####
-
 def test_updates(get_import_id):
 	"""Test for the second method with valid data"""
 	url = "http://localhost:5000/imports/" + str(get_import_id) + "/citizens/1"
@@ -480,7 +474,6 @@ def test_updates_with_no_body_data(get_import_id):
 
 
 #### Tests for the third method: GET /imports/<int:import_id>/citizens ####
-
 def test_get_import(get_import_id):
 	"""Test for the third method with valid data"""
 	url = "http://localhost:5000/imports/" + str(get_import_id) + "/citizens"
@@ -497,7 +490,6 @@ def test_get_import_with_non_existent_import_id():
 
 
 #### Tests for the fourth method: GET /imports/<int:import_id>/citizens/birthdays ####
-
 def test_get_birthdays(get_import_id):
 	"""Test for the fourth method with valid data"""
 	url = "http://localhost:5000/imports/" + str(get_import_id) + "/citizens/birthdays"
@@ -514,7 +506,6 @@ def test_get_birthdays_with_non_existent_import_id():
 
 
 #### Tests for the fifth method: GET /imports/<int:import_id>/citizens/birthdays ####
-
 def test_get_stat(get_import_id):
 	"""Test for the fifth method with valid data"""
 	url = "http://localhost:5000/imports/" + str(get_import_id) + "/towns/stat/percentile/age"
@@ -531,7 +522,6 @@ def test_get_stat_with_non_existent_import_id(get_import_id):
 
 
 #### Test for the request to non existent endpoint ####
-
 def test_get_data_from_non_existent_endpoint(get_import_id):
 	"""Test for the request to non existent endpoint"""
 	url = "http://localhost:5000/imports/" + str(get_import_id) + "/some/path"
