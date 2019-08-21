@@ -38,7 +38,7 @@ def insert_doc(doc):
 @app.route("/imports", methods=["POST"])
 def create_import():
     if not request.json:
-        abort(404)
+        abort(400)
     validation.import_validation(request.json["citizens"])
     new_doc = insert_doc(request.json)
 

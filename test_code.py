@@ -57,6 +57,14 @@ def test_import():
 	assert response.status_code == 201, "Test failed"
 
 
+def test_import_with_no_data():
+	"""Test for the first method with no data"""
+	url = "http://localhost:5000/imports"
+	data_to_send = {}
+	response = requests.post(url, json=data_to_send)
+	assert response.status_code == 400, "Body should contain data"
+
+
 def test_import_with_not_unique_citizen_id():
 	"""Test for the first method with not unique citizen_id"""
 	url = "http://localhost:5000/imports"
