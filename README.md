@@ -14,9 +14,8 @@ Package       Version
 ------------- ---------
 Flask         1.1.1
 mongo         0.2.0
-numpy         1.17.0
-pip           19.2
 pymongo       3.8.0
+numpy         1.17.0
 pytest        2.9.1
 requests      2.22.0
 ```
