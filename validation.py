@@ -6,9 +6,15 @@ import re
 # This function is build to validate first method data
 def import_validation(citizens):
     citizen_fields = [
-    "citizen_id", "town", "street",
-    "building", "apartment", "name",
-    "birth_date", "gender", "relatives"
+        "citizen_id",
+        "town",
+        "street",
+        "building",
+        "apartment",
+        "name",
+        "birth_date",
+        "gender",
+        "relatives",
     ]
     for citizen in citizens:
         for field in citizen_fields:
@@ -18,37 +24,39 @@ def import_validation(citizens):
             if element not in citizen_fields:
                 abort(400)
 
-        fields_are_good = all([
-        isinstance(citizen["citizen_id"], int),
-        isinstance(citizen["town"], str),
-        isinstance(citizen["street"], str),
-        isinstance(citizen["building"], str),
-        isinstance(citizen["apartment"], int),
-        isinstance(citizen["name"], str),
-        isinstance(citizen["birth_date"], str),
-        isinstance(citizen["gender"], str),
-        isinstance(citizen["relatives"], list)
-        ])
+        fields_are_good = all(
+            [
+                isinstance(citizen["citizen_id"], int),
+                isinstance(citizen["town"], str),
+                isinstance(citizen["street"], str),
+                isinstance(citizen["building"], str),
+                isinstance(citizen["apartment"], int),
+                isinstance(citizen["name"], str),
+                isinstance(citizen["birth_date"], str),
+                isinstance(citizen["gender"], str),
+                isinstance(citizen["relatives"], list),
+            ]
+        )
         if not fields_are_good:
             abort(400)
 
         if citizen["citizen_id"] < 0:
             abort(400)
-        if not re.match(r'.*\w.*', citizen["town"]):
+        if not re.match(r".*\w.*", citizen["town"]):
             abort(400)
-        if not re.match(r'.*\w.*', citizen["street"]):
+        if not re.match(r".*\w.*", citizen["street"]):
             abort(400)
-        if not re.match(r'.*\w.*', citizen["building"]):
+        if not re.match(r".*\w.*", citizen["building"]):
             abort(400)
         if citizen["apartment"] < 0:
             abort(400)
-        if not re.match(r'.*\w.*', citizen["name"]):
+        if not re.match(r".*\w.*", citizen["name"]):
             abort(400)
 
         birth_date_validation(citizen["birth_date"])
 
         gender = citizen["gender"].split(" ")[0]
-        if not gender or gender not in ('male', 'female'):
+        if not gender or gender not in ("male", "female"):
             abort(400)
 
         list_relatives = citizen["relatives"]
@@ -73,19 +81,19 @@ def update_citizen_validation(citizen):
         if field == "town":
             if not isinstance(citizen["town"], str):
                 abort(400)
-            if not re.match(r'.*\w.*', citizen["town"]):
+            if not re.match(r".*\w.*", citizen["town"]):
                 abort(400)
 
         if field == "street":
             if not isinstance(citizen["street"], str):
                 abort(400)
-            if not re.match(r'.*\w.*', citizen["street"]):
+            if not re.match(r".*\w.*", citizen["street"]):
                 abort(400)
 
         if field == "building":
             if not isinstance(citizen["building"], str):
                 abort(400)
-            if not re.match(r'.*\w.*', citizen["building"]):
+            if not re.match(r".*\w.*", citizen["building"]):
                 abort(400)
 
         if field == "apartment":
@@ -97,7 +105,7 @@ def update_citizen_validation(citizen):
         if field == "name":
             if not isinstance(citizen["name"], str):
                 abort(400)
-            if not re.match(r'.*\w.*', citizen["name"]):
+            if not re.match(r".*\w.*", citizen["name"]):
                 abort(400)
 
         if field == "birth_date":
@@ -109,7 +117,7 @@ def update_citizen_validation(citizen):
             if not isinstance(citizen["gender"], str):
                 abort(400)
             gender = citizen["gender"].split(" ")[0]
-            if not gender or gender not in ('male', 'female'):
+            if not gender or gender not in ("male", "female"):
                 abort(400)
 
 

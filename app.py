@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-from flask import Flask, jsonify, abort, make_response, request
+from flask import Flask, jsonify, abort, request
 from collections import defaultdict
 from pymongo import MongoClient
 import numpy as np
-import datetime, re
+import datetime
 import validation
 
 app = Flask(__name__)
@@ -14,17 +14,12 @@ imports_collection = db.Imports
 IDs_collection = db.IDs
 
 if not IDs_collection.find_one({"id": 0}):
-    db.IDs.insert_one({
-    "collection" : "Imports",
-    "id" : 0})
+    db.IDs.insert_one({"collection": "Imports", "id": 0})
 
 
 def insert_doc(doc):
     doc["_id"] = db.IDs.find_and_modify(
-        query={"collection": "Imports"},
-        update={"$inc": {"id": 1}},
-        fields={"id": 1, "_id": 0},
-        new=True
+        query={"collection": "Imports"}, update={"$inc": {"id": 1}}, fields={"id": 1, "_id": 0}, new=True
     ).get("id")
     doc["import_id"] = doc["_id"]
     try:
@@ -41,7 +36,6 @@ def create_import():
         abort(400)
     validation.import_validation(request.json["citizens"])
     new_doc = insert_doc(request.json)
-
     return jsonify({"data": {"import_id": new_doc}}), 201
 
 
@@ -62,22 +56,32 @@ def update_citizen(import_id, citizen_id):
                     abort(400)
                 if item not in citizen_id_set:
                     abort(400)
-            current_relatives = imports_collection.find_one({"import_id": import_id, "citizens.citizen_id": citizen_id},
-                                                         {"citizens.$": 1})["citizens"][0]["relatives"]
+            current_relatives = imports_collection.find_one(
+                {"import_id": import_id, "citizens.citizen_id": citizen_id}, {"citizens.$": 1}
+            )["citizens"][0]["relatives"]
             new_relatives = request.json["relatives"]
             to_delete = list(set(current_relatives) - set(new_relatives))
             to_add = list(set(new_relatives) - set(current_relatives))
             for item in to_delete:
-                imports_collection.update_one({"import_id": import_id, "citizens.citizen_id": item},
-                                             {"$pull": {"citizens.$.relatives": citizen_id}})
+                imports_collection.update_one(
+                    {"import_id": import_id, "citizens.citizen_id": item},
+                    {"$pull": {"citizens.$.relatives": citizen_id}},
+                )
             for item in to_add:
-                imports_collection.update_one({"import_id": import_id, "citizens.citizen_id": item},
-                                             {"$addToSet": {"citizens.$.relatives": citizen_id}})
+                imports_collection.update_one(
+                    {"import_id": import_id, "citizens.citizen_id": item},
+                    {"$addToSet": {"citizens.$.relatives": citizen_id}},
+                )
     for field in request.json:
-        imports_collection.update_one({"import_id": import_id, "citizens.citizen_id": citizen_id},
-                                     {"$set": {"citizens.$." + str(field): request.json[field]}}, False, True)
-    updated_citizen = imports_collection.find_one({"import_id": import_id, "citizens.citizen_id": citizen_id},
-                                         {"citizens.$": 1})["citizens"][0]
+        imports_collection.update_one(
+            {"import_id": import_id, "citizens.citizen_id": citizen_id},
+            {"$set": {"citizens.$." + str(field): request.json[field]}},
+            False,
+            True,
+        )
+    updated_citizen = imports_collection.find_one(
+        {"import_id": import_id, "citizens.citizen_id": citizen_id}, {"citizens.$": 1}
+    )["citizens"][0]
     return jsonify({"data": updated_citizen}), 200
 
 
@@ -135,7 +139,7 @@ def get_statistics(import_id):
         citizen_year = int(citizen["birth_date"][year_slice])
 
         age = today.year - citizen_year
-        - ((today.month, today.day) < (citizen_month, citizen_day))
+        -((today.month, today.day) < (citizen_month, citizen_day))
         town_list[citizen["town"]].append(age)
 
     for town, age in town_list.items():
@@ -143,12 +147,7 @@ def get_statistics(import_id):
         p50 = np.percentile(a, 50, interpolation="linear")
         p75 = np.percentile(a, 75, interpolation="linear")
         p99 = np.percentile(a, 99, interpolation="linear")
-        data.append({
-        "town": town,
-        "p50": "{:.4}".format(p50),
-        "p75": "{:.4}".format(p75),
-        "p99": "{:.4}".format(p99)
-        })
+        data.append({"town": town, "p50": "{:.4}".format(p50), "p75": "{:.4}".format(p75), "p99": "{:.4}".format(p99)})
     return jsonify({"data": data}), 200
 
 
