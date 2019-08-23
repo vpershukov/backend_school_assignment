@@ -120,6 +120,10 @@ def update_citizen_validation(citizen):
             if not gender or gender not in ("male", "female"):
                 abort(400)
 
+        if field == "relatives":
+            if not isinstance(citizen["relatives"], list):
+                abort(400)
+
 
 # This function is build to validate birth_date data format
 def birth_date_validation(birth_date):
