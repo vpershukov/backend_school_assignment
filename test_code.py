@@ -6,7 +6,7 @@ import random
 invalid_data_for_int_fields = [-1, "string", None, 1.1]
 invalid_data_for_string_fields = [" ", "", "-", None, 1, -1]
 invalid_data_for_birth_date_field = ["", " ", "-", 1, None, "32.12.1986", "26.13.1986", "12.26.1986", "26.12"]
-invalid_data_for_relatives_field = [["sdsd"], [""], [None], [1, "qwerty"], [12.2]]
+invalid_data_for_relatives_field = [["sdsd"], [""], [None], [1, "qwerty"], [12.2], 1, None, "qwerty"]
 
 # Fixture to get import_id
 @pytest.fixture(scope="session")
