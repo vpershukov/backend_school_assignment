@@ -50,7 +50,8 @@ def import_validation(citizens):
             abort(400)
         if citizen["apartment"] < 0:
             abort(400)
-        if not re.match(r".*\w.*", citizen["name"]):
+        name = citizen["name"].split()
+        if len(name) < 1:
             abort(400)
 
         birth_date_validation(citizen["birth_date"])
@@ -105,7 +106,8 @@ def update_citizen_validation(citizen):
         if field == "name":
             if not isinstance(citizen["name"], str):
                 abort(400)
-            if not re.match(r".*\w.*", citizen["name"]):
+            name = citizen["name"].split()
+            if len(name) < 1:
                 abort(400)
 
         if field == "birth_date":

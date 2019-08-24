@@ -60,14 +60,14 @@ def update_citizen(import_id, citizen_id):
                 {"import_id": import_id, "citizens.citizen_id": citizen_id}, {"citizens.$": 1}
             )["citizens"][0]["relatives"]
             new_relatives = request.json["relatives"]
-            to_delete = list(set(current_relatives) - set(new_relatives))
-            to_add = list(set(new_relatives) - set(current_relatives))
-            for item in to_delete:
+            family_ties_to_delete = list(set(current_relatives) - set(new_relatives))
+            family_ties_to_add = list(set(new_relatives) - set(current_relatives))
+            for item in family_ties_to_delete:
                 imports_collection.update_one(
                     {"import_id": import_id, "citizens.citizen_id": item},
                     {"$pull": {"citizens.$.relatives": citizen_id}},
                 )
-            for item in to_add:
+            for item in family_ties_to_add:
                 imports_collection.update_one(
                     {"import_id": import_id, "citizens.citizen_id": item},
                     {"$addToSet": {"citizens.$.relatives": citizen_id}},
