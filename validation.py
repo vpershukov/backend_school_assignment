@@ -57,7 +57,7 @@ def import_validation(citizens):
         birth_date_validation(citizen["birth_date"])
 
         gender = citizen["gender"].split()
-        if len(gender) > 1:
+        if len(gender) != 1:
             abort(400)
         if not gender[0] or gender[0] not in ("male", "female"):
             abort(400)
@@ -121,7 +121,7 @@ def update_citizen_validation(citizen):
             if not isinstance(citizen["gender"], str):
                 abort(400)
             gender = citizen["gender"].split()
-            if len(gender) > 1:
+            if len(gender) != 1:
                 abort(400)
             if not gender[0] or gender[0] not in ("male", "female"):
                 abort(400)
