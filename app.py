@@ -47,6 +47,10 @@ def update_citizen(import_id, citizen_id):
     get_import = imports_collection.find_one({"import_id": import_id})
     if not get_import:
         abort(400)
+    citizen_check = imports_collection.find_one(
+        {"import_id": import_id, "citizens.citizen_id": citizen_id})
+    if not citizen_check:
+        abort(400)
     citizen_id_set = set(map(lambda x: x["citizen_id"], get_import["citizens"]))
     validation.update_citizen_validation(request.json)
     for field in request.json:
