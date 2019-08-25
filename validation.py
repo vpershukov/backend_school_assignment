@@ -57,7 +57,7 @@ def import_validation(citizens):
         birth_date_validation(citizen["birth_date"])
 
         gender = citizen["gender"]
-        if not gender or gender not in ("male", "female"):
+        if gender not in ("male", "female"):
             abort(400)
 
         list_relatives = citizen["relatives"]

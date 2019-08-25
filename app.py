@@ -100,11 +100,11 @@ def get_citizens_and_presents(import_id):
     get_import = imports_collection.find_one({"import_id": import_id})
     if not get_import:
         abort(400)
-    citizen_dates = dict()
+    citizen_dates = {}
     month_slice = slice(3, 5)
     for citizen in get_import["citizens"]:
         citizen_dates[str(citizen["citizen_id"])] = int(citizen["birth_date"][month_slice])
-    data = dict()
+    data = {}
     for i in range(1, 13):
         data[str(i)] = []
     for citizen in get_import["citizens"]:
