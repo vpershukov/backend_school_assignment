@@ -32,7 +32,7 @@ def insert_doc(doc):
 # First API method
 @app.route("/imports", methods=["POST"])
 def create_import():
-    if not request.json:
+    if not request.json or not isinstance(request.json, dict):
         abort(400)
     validation.import_validation(request.json["citizens"])
     new_doc = insert_doc(request.json)
@@ -42,7 +42,7 @@ def create_import():
 # Second API method
 @app.route("/imports/<int:import_id>/citizens/<int:citizen_id>", methods=["PATCH"])
 def update_citizen(import_id, citizen_id):
-    if not request.json:
+    if not request.json or not isinstance(request.json, dict):
         abort(400)
     get_import = imports_collection.find_one({"import_id": import_id})
     if not get_import:

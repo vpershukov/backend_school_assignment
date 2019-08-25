@@ -125,6 +125,10 @@ def update_citizen_validation(citizen):
         if field == "relatives":
             if not isinstance(citizen["relatives"], list):
                 abort(400)
+            list_relatives = citizen["relatives"]
+            unique_relatives = set(citizen["relatives"])
+            if len(list_relatives) != len(unique_relatives):
+                abort(400)
 
 
 # This function is build to validate birth_date data format
