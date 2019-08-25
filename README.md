@@ -3,16 +3,17 @@
 
 # Зависимости
 
-```python
-Package       Version
-------------- ---------
-Flask         1.1.1
-mongo         0.2.0
-pymongo       3.8.0
-numpy         1.17.0
-pytest        2.9.1
-requests      2.22.0
+```python3
+Package     Version
+
+Flask       1.1.1
+mongo       0.2.0
+pymongo     3.8.0
+numpy       1.17.0
+pytest      2.9.1
+requests    2.22.0
 ```
+
 
 # Тестирование
 
