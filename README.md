@@ -1,6 +1,6 @@
 Этот проект — REST API сервис, реализованный в качестве вступительного испытания
 в школу бэкенд-разработки Яндекса. Сервис сохраняет переданные ему наборы данных, позволяет их
-просматривать и редактировать, а также производить анализ этих данных. Подродное техническое задание находится [здесь](file:///Users/vpershukov/Downloads/TASK.pdf).
+просматривать и редактировать, а также производить анализ этих данных. Подробное техническое задание находится [здесь](https://docviewer.yandex.ru/view/522289777/?page=1&*=d3yu5DTbRdU%2BmWq676JUZ0iLDLd7InVybCI6InlhLWRpc2stcHVibGljOi8vOHhSS3l5bXZVL0VsUGJCY3k1M3V1T043VEQzSEdrRU1TbGtEN0pXRWFweVFybTNadjhwVTRNMWJHL3RDRzlMSnEvSjZicG1SeU9Kb25UM1ZvWG5EYWc9PSIsInRpdGxlIjoiVEFTSy5wZGYiLCJub2lmcmFtZSI6ZmFsc2UsInVpZCI6IjUyMjI4OTc3NyIsInRzIjoxNTY4NzIxNDk0Mzc4LCJ5dSI6IjQ3NTcxNzcxOTE1NjgyNjY1MDgifQ%3D%3D).
 
 
 # Установка
